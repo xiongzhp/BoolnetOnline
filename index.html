@@ -11,6 +11,78 @@
     </script>
 </head>
 <body>
-	
+	<nav class="mui-bar mui-bar-tab">
+		<a id="defaultTab" class="mui-tab-item mui-active" href="tab-webview-subpage-tuan.html">
+			<span class="mui-icon mui-icon-home"></span>
+			<span class="mui-tab-label">团购</span>
+		</a>
+		<a class="mui-tab-item" href="tab-webview-subpage-business.html">
+			<span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
+			<span class="mui-tab-label">商家</span>
+		</a>
+		<a class="mui-tab-item" href="tab-webview-subpage-mine.html">
+			<span class="mui-icon mui-icon-contact"></span>
+			<span class="mui-tab-label">我的</span>
+		</a>
+		<a class="mui-tab-item" href="tab-webview-subpage-more.html">
+			<span class="mui-icon mui-icon-gear"></span>
+			<span class="mui-tab-label">更多</span>
+		</a>
+	</nav>
+	<script type="text/javascript">
+		var subpage_style = {
+			top: '0',
+			bottom: '50px'
+		};
+		mui.init({
+			subpages:[{
+				url:'pages/tab-webview-subpage-tuan.html',
+				id:'tab-webview-subpage-tuan.html',
+				styles:subpage_style,
+				show:true
+			},{
+				url:'pages/tab-webview-subpage-business.html',
+				id:'tab-webview-subpage-business.html',
+				styles:subpage_style
+			},{
+				url:'pages/tab-webview-subpage-mine.html',
+				id:'tab-webview-subpage-mine.html',
+				styles:subpage_style
+			},{
+				url:'pages/tab-webview-subpage-more.html',
+				id:'tab-webview-subpage-more.html',
+				styles:subpage_style
+			}]
+		});
+		
+		//当前激活选项
+		var activeTab = 'tab-webview-subpage-tuan.html';
+		//选项卡点击事件
+		mui('.mui-bar-tab').on('tap', 'a', function(e) {
+			var targetTab = this.getAttribute('href');
+			if (targetTab == activeTab) {
+				return;
+			}
+			//显示目标选项卡
+			plus.webview.show(targetTab);
+			//隐藏当前;
+			plus.webview.hide(activeTab);
+			//更改当前活跃的选项卡
+			activeTab = targetTab;
+		});
+		
+		//自定义事件，模拟点击“首页选项卡”
+		document.addEventListener('gohome',function () {
+			var defaultTab = document.getElementById("defaultTab");
+			//模拟首页点击
+			mui.trigger(defaultTab,'tap');
+			//切换选项卡高亮
+			var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
+			if(defaultTab!==current){
+				current.classList.remove('mui-active');
+				defaultTab.classList.add('mui-active');
+			}
+		});
+	</script>
 </body>
 </html>
