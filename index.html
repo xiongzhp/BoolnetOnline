@@ -1,88 +1,249 @@
-<!DOCTYPE html>
 <html>
+<html>
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title></title>
-    <script src="js/mui.min.js"></script>
-    <link href="css/mui.min.css" rel="stylesheet"/>
-    <script type="text/javascript" charset="utf-8">
-      	mui.init();
-    </script>
+<title>boolOnline</title>
+
+<!-- The order of import plays a role, due to dependencies on jQuery ... -->
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css"/>
+<link rel="stylesheet" type="text/css" href="css/visualization-html.css"/>
+<link rel="stylesheet" type="text/css" href="css/simulator.css"/>
+<link rel="stylesheet" type="text/css" href="css/rickshaw.css"/>
+
+<script type="text/javascript" src="include/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="include/jquery-ui-1.8.22.custom.min.js"></script>
+<script type="text/javascript" src="settings.js"></script>
+<script type="text/javascript" src="js/controls.js"></script>
+    
+<script type="data/jSBGN" id="demoNetwork1">
+targets, factors
+
+pluri_exo, !pluri_exo_meth | !pluri_exo_het_chrom
+pluri_exo_meth, pluri_exo_meth
+pluri_exo_het_chrom, pluri_exo_het_chrom
+
+pluri_net, (pluri_net | pluri_exo) & !(B_net | A_net) & !pluri_meth & !pluri_het_chrom
+pluri_meth, pluri_meth
+pluri_het_chrom, pluri_het_chrom
+
+B_net, B_net & !(pluri_net | A_net) & !B_meth & !B_het_chrom
+B_meth, B_meth
+B_het_chrom, B_het_chrom
+
+A_net, A_net & !(pluri_net | B_net) & !A_meth & !A_het_chrom
+A_meth, A_meth
+A_het_chrom, A_het_chrom
+
+dnmt, pluri_net | pluri_exo | dnmt
+de_meth, pluri_net | pluri_exo | de_meth
+</script>
+
+<script type="data/jSBGN" id="demoNetwork2">
+targets, factors
+CycD, CycD
+Rb, (! CycA & ! CycB & ! CycD & ! CycE) | (p27 & ! CycB & ! CycD)
+E2F, (! Rb & ! CycA & ! CycB) | (p27 & ! Rb & ! CycB)
+CycE, (E2F & ! Rb)
+CycA, (E2F & ! Rb & ! Cdc20 & ! (Cdh1 & UbcH10)) | (CycA & ! Rb & ! Cdc20 & ! (Cdh1 & UbcH10))
+p27, (! CycD & ! CycE & ! CycA & ! CycB) | (p27 & ! (CycE & CycA) & ! CycB &! CycD)
+Cdc20, CycB
+Cdh1,(! CycA & ! CycB) | (Cdc20) | (p27 & ! CycB)
+UbcH10, ! Cdh1 | (Cdh1 & UbcH10 & (Cdc20 | CycA | CycB))
+CycB, ! Cdc20 & ! Cdh1
+</script>
+
 </head>
-<body>
-	<nav class="mui-bar mui-bar-tab">
-		<a id="defaultTab" class="mui-tab-item mui-active" href="tab-webview-subpage-tuan.html">
-			<span class="mui-icon mui-icon-home"></span>
-			<span class="mui-tab-label">团购</span>
-		</a>
-		<a class="mui-tab-item" href="tab-webview-subpage-business.html">
-			<span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
-			<span class="mui-tab-label">商家</span>
-		</a>
-		<a class="mui-tab-item" href="tab-webview-subpage-mine.html">
-			<span class="mui-icon mui-icon-contact"></span>
-			<span class="mui-tab-label">我的</span>
-		</a>
-		<a class="mui-tab-item" href="tab-webview-subpage-more.html">
-			<span class="mui-icon mui-icon-gear"></span>
-			<span class="mui-tab-label">更多</span>
-		</a>
-	</nav>
-	<script type="text/javascript">
-		var subpage_style = {
-			top: '0',
-			bottom: '50px'
-		};
-		mui.init({
-			subpages:[{
-				url:'pages/tab-webview-subpage-tuan.html',
-				id:'tab-webview-subpage-tuan.html',
-				styles:subpage_style,
-				show:true
-			},{
-				url:'pages/tab-webview-subpage-business.html',
-				id:'tab-webview-subpage-business.html',
-				styles:subpage_style
-			},{
-				url:'pages/tab-webview-subpage-mine.html',
-				id:'tab-webview-subpage-mine.html',
-				styles:subpage_style
-			},{
-				url:'pages/tab-webview-subpage-more.html',
-				id:'tab-webview-subpage-more.html',
-				styles:subpage_style
-			}]
-		});
-		
-		//当前激活选项
-		var activeTab = 'tab-webview-subpage-tuan.html';
-		//选项卡点击事件
-		mui('.mui-bar-tab').on('tap', 'a', function(e) {
-			var targetTab = this.getAttribute('href');
-			if (targetTab == activeTab) {
-				return;
-			}
-			//显示目标选项卡
-			plus.webview.show(targetTab);
-			//隐藏当前;
-			plus.webview.hide(activeTab);
-			//更改当前活跃的选项卡
-			activeTab = targetTab;
-		});
-		
-		//自定义事件，模拟点击“首页选项卡”
-		document.addEventListener('gohome',function () {
-			var defaultTab = document.getElementById("defaultTab");
-			//模拟首页点击
-			mui.trigger(defaultTab,'tap');
-			//切换选项卡高亮
-			var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
-			if(defaultTab!==current){
-				current.classList.remove('mui-active');
-				defaultTab.classList.add('mui-active');
-			}
-		});
-	</script>
+
+<body style="overflow-y: scroll;">
+
+<div id=tabs>
+    <ul>
+        <a target="blank" href="https://github.com/xiongzhp/boolOnline.git"><img id=Logo alt="boolOnline" src="img/logo.png" /></a>
+
+        <li><a href="#tabNetwork">View</a></li>
+        <li><a href="#tabEditor">Editor</a></li>
+        <li><a href="#tabTimeseries">Time series</a></li>
+
+        <li><button id=buttonHelp>Tips</button></li>
+        <!-- <li><button id=buttonPreferences>Preferences</button></li> -->
+        <li><button id=buttonSimulate>Simulate</button></li>
+        <!-- <li><button id=buttonExportDialog>Export</button></li> -->
+        <li><button id=buttonImportDialog>Import</button></li>
+        <li><button id=buttonCreate>New</button></li>
+        <li><label id=labelIteration>Iteration:<label id=textIteration>0</label></label></li>
+    </ul>
+
+    <div class=tabs id=tabNetwork>
+        <img id=grid src="img/grid.svg"/>
+        <button id=buttonInitialCreate>New</button>
+    </div>
+
+    <div id=divNetworkLegend>
+        <div id=divLegendColors>
+            <div class="legend legendTrue"></div>&nbsp;=&nbsp;<b>ON</b>&nbsp;&nbsp;
+            <div class="legend legendFalse"></div>&nbsp;=&nbsp;<b>OFF</b>
+        </div>
+        <div id=divLegendButtons>
+            <button id=buttonResetStates>Reset states</button>
+            <button id=buttonAllTrue>All ON</button>
+            <button id=buttonAllFalse>All OFF</button>
+        </div>
+    </div>
+
+    <div class=tabs id=tabEditor>
+        <br/>
+        <font size=6><b>Rule editor</b></font><br/>
+        <div id=divRuleHelp>
+            <b><font size=4>Help</font></b><br/>
+            <br/>
+                Please enter the Boolean rules<br/>
+                that define your network<br/>
+                in JavaScript syntax :<br/>
+            <br/>
+            <table border=1>
+                <tr><th>Boolean logic</th><th>JavaScript</th></tr>
+                <tr><td>AND</td><td>&amp;&amp;</td></tr>
+                <tr><td>OR</td><td>||</td></tr>
+                <tr><td>NOT</td><td>!</td></tr>
+                <tr><td>ON</td><td>true</td></tr>
+                <tr><td>OFF</td><td>false</td></tr>
+            </table>
+            <br/>
+            <ul>
+                <li>One rule per target node<br/>(left side of equation)</li>
+                <li>One rule per line</li>
+                <li>Empty lines allowed</li>
+                <li>Round brackets allowed</li>
+            </ul>
+            <br/>
+                Example: <i>A = (B || C) &amp;&amp; (!D)</i>
+        </div>
+        <textarea id=textRules spellcheck="false" wrap="off" disabled="true" onkeyup="SpellCheck(event);"></textarea>
+        <script src="js/spellchecker.js"></script>
+        <br/>
+        <div id=divSaveRules>
+            <button id=buttonSaveRules>Save changes to network</button>
+            <button id=buttonDiscardChanges>Discard changes</button>
+            <label id=labelSaved>-unsaved changes-</label>
+        </div>
+    </div>
+
+    <div class=tabs id=tabTimeseries>
+        <br/>
+        <font size=6><b>Time series</b></font><br/>
+        <div id=divTimeseriesLegend>
+          <div class="legend legendTrue"></div>&nbsp;=&nbsp;<b>True</b>&nbsp;&nbsp;
+          <div class="legend legendFalse"></div>&nbsp;=&nbsp;<b>False</b>&nbsp;&nbsp;
+          <img src="img/cursor.svg"/>&nbsp;=&nbsp;<b>Iterator position</b>
+        </div>
+        <div id=divTimeseries>
+        </div>
+        <button id=buttonResetTime>Reset time</button>
+    </div>
+
+</div>
+
+<div id=dialogAddNode class=dialog title="Add node">
+    <b>Node name/id:</b><br/>
+    <input type=text id=textNodeID onkeyup="if (event.keyCode == 13) $('#buttonAddNode').trigger('click');"/><br/>
+  
+    <button id=buttonAddNode class=dialogButton> Add </button>
+    <button id=buttonAddNodeCancel class=dialogButton> Cancel </button>
+</div>
+
+<div id=dialogDeleteNode class=dialog title="Delete node">
+    <b>Are you sure you want to delete <i id=deleteNodeID></i>?</b><br/>
+  
+    <button id=buttonDeleteNodeYes class=dialogButton> Yes </button>
+    <button id=buttonDeleteNodeNo class=dialogButton> No </button>
+</div>
+
+<div id=dialogConfirm class=dialog title="Create new network">
+    <b>Are you sure you want to discard all changes to the current network and create a new one ?</b><br/>
+
+    <button id=buttonConfirmYes class=dialogButton> Yes, discard </button>
+    <button id=buttonConfirmExport class=dialogButton> Save current network </button>
+    <button id=buttonConfirmNo class=dialogButton> Cancel </button>
+</div>
+
+<!-- This dialog appears after clicking "Open" -->
+<div id=dialogImport class=dialog title="Import network">
+    <b>Import file:</b>
+    <input type=file id=fileNetwork />
+    <br/> 
+    <div id=radioSeed>
+        <b>Set initial node state:</b> <br/>
+        <input type=radio name="seed" id=seedFile checked />as initialized in the model<br/>
+        <input type=radio name="seed" id=seedTrue />all true<br/>
+        <input type=radio name="seed" id=seedFalse />all false<br/>
+        <input type=radio name="seed" id=seedRandom />all randomly true or false<br/>
+    </div>
+    <div id=radioFormat>
+        <b>Specify filetype:</b> <br/>
+        <input type=radio name="format" id=formatGuess checked />infer format<br/>
+        <input type=radio name="format" id=formatPyBooleanNet />Python BooleanNet <small>(<a target="_blank" href="http://code.google.com/p/booleannet/">more</a>)</small><br/>
+        <input type=radio name="format" id=formatRBoolNet />R BoolNet <small>(<a target="_blank" href="http://www.informatik.uni-ulm.de/ni/mitarbeiter/HKestler/boolnet/">more</a>)</small><br/>
+        <!--input type=radio name="format" id=formatGINML />GINML <small>(<a target="_blank" href="http://gin.univ-mrs.fr/GINsim/ginml.html">more</a>)</small><br/-->
+        <input type=radio name="format" id=formatjSBGN />jSBGN <small>(<a target="_blank" href="https://code.google.com/p/biographer/wiki/graph_exchange">more</a>)</small><br/>
+        <!--input type=radio name="format" id=formatSBML />SBML <small>(<a target="_blank" href="http://sbml.org/Basic_Introduction_to_SBML">more</a>)</small><br-->
+    </div>
+    <button id=buttonImportFile class=dialogButton> Import </button>
+    <button id=buttonImportCancel class=dialogButton> Cancel </button><br/>
+    <button id=buttonDemo1 class=dialogButton> Pluripotency demo </button>
+    <button id=buttonDemo2 class=dialogButton> Cell cycle demo </button>
+</div>
+  
+<!-- This dialog appears after clicking "Export" -->
+<div id=dialogExport class=dialog title="Export network">
+    <b>Model and graph combined:</b><br/>
+    <input type=radio name="export" id=exportjSBGN checked />jSBGN<br/>
+    <b>Model only:</b><br/>
+    <input type=radio name="export" id=exportNetworkRBoolNet />R BoolNet<br/>
+    <input type=radio name="export" id=exportNetworkPyBooleanNet />Python BooleanNet<br/>
+    <b>Graph only:</b><br/>
+    <input type=radio name="export" id=exportSVG />SVG<br/>
+    <b>Time series graph only:</b><br/>
+    <input type=radio name="export" id=exportTimeseries />SVG<br/>
+  
+    <button id=buttonExportFile class=dialogButton> Export </button>
+    <button id=buttonExportCancel class=dialogButton> Cancel </button>
+</div>
+
+<div id=dialogPreferences class=dialog title="Preferences">
+    <input type=checkbox id=optionsOneClick onclick="config.oneClick = typeof($('#optionsOneClick').attr('checked')) !== undefined;" />Simulate on node click<br/>
+    <input type=checkbox id=optionsScale />Scale graph to fit page on import<br/>
+    <input type=checkbox id=optionsSimulateAfterImport />Start simulating after import<br/>
+    <input type=checkbox id=optionsResetStatesToBeforeSimulation />Reset states to state before simulation, instead of state upon import<br/>
+    <!--input type=checkbox id=optionsSyntaxChecking checked />Check rule syntax in editor<br/-->
+</div>
+
+<!-- This dialog appears when "Help" is clicked -->
+<div id=dialogHelp class=dialog title="Help">
+    <br/>
+    <ul>
+    <li>Click the <i>New</i> button to start creating a new network.</li>
+    <li>Click the <i>Import</i> button to import an existing network.</li>
+    <li>Ctrl+right click in the canvas to create a new node.</li>
+    <li>Right-click on a node to delete it.</li>
+    <li>Left-click on a node, to change it's state (from true to false and vice-versa).</li>
+    <li>Ctrl+left click on a node, to freeze/unfreeze it (disable/re-enable node state update).</li>
+    <li>Zoom in and out of the network using Alt+mouse wheel with the mouse cursor inside the graph.</li>
+    <li>Drag'n'drop on the canvas to move the network around.</li>
+    <li>Click the nodes' borders, to resize them.</li>
+    <li>Hover a node, to see a hint with the node's Boolean update rule.</li>
+    <li>Edit the underlying network logic in the Rules tab.</li>
+    <li>Monitor the network state changes over time in the Timeseries tab.</li>
+    </ul>
+    <button id=buttonHelpClose class=dialogButton> Close </button>
+</div>
+
+<!-- This warning appears, when an incompatible browser is detected -->
+<script>
+    if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0)
+        alert('Dear user,\nplease note, that this web application is developed for\nand thus works best with the Chromium web browser.\nThank you!');
+    $('#dialogHelp').dialog('open');
+</script>
+
 </body>
+
 </html>

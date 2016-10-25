@@ -1,0 +1,269 @@
+
+#tabs {
+    border: none;
+    margin: 2px;
+    padding: 0;
+    font-size: 16px;
+}
+
+#tabNetwork {
+    min-height: 90%;
+}
+
+#tabNetwork svg {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.tabs {
+    background-color:#FFF!important;
+    padding:0!important;
+}
+
+#Logo {
+    border: none;
+    float: left;
+    margin-top: 8px;
+    margin-left: 8px;
+    width: 158px;
+}
+
+#labelIteration {
+    display: inline-block;
+    padding-top: 10px;
+    padding-right: 10px;
+}
+
+/*#tabNetwork {
+  min-width: 800px;
+  min-height: 800px;
+}*/
+
+#grid {
+    height: 94%;
+    width: 100%;
+}
+
+#buttonInitialCreate {
+    position: absolute;
+    left: 48%;
+    top: 50%;
+}
+
+#buttonSimulate {
+    width: 119px;
+}
+
+#textRules {
+    display: inline;
+    vertical-align: top;
+    -webkit-appearance: none;
+    font-family: monospace;
+    font-size: 14;
+    line-height: 18px;
+    box-shadow: -10px 10px 5px #888;
+   -webkit-box-shadow: -10px 10px 5px #888;
+   -moz-box-shadow: -10px 10px 5px #888;
+   overflow: scroll;
+   resize: none;
+}
+
+.spellcheckWarning {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+#divRuleHelp {
+    padding: 5px;
+    margin-top: 25px;
+    margin-right: 10px;
+    display: inline-block;
+    border: none;
+    border-radius: 5px;
+    background-color: #ccc;
+    box-shadow: 0px 0px 5px 5px #ccc;
+    text-align: left;
+}
+
+#divRuleHelp td {
+    text-align: center;
+}
+
+#divSaveRules {
+    border: none;
+	display: inline-block;
+    width: 800px;
+    margin-top: 8px;
+    margin-left: 237px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+#labelSaved {
+    float: right;
+    color: red;
+    font-weight: bold;
+    visibility: hidden;
+}
+
+#SteadyStates
+{
+    border: 1px solid black;
+}
+
+#SteadyStates td {
+    text-align: center;
+    border: 1px solid black;
+}
+
+#tabEditor, #tabTimeseries {
+    text-align: center;
+}
+
+#divTimeseries {
+    border: 1px dotted black;
+    border-radius: 5px;
+    margin: 15px;
+}
+
+#divTimeseries > svg {
+  margin: 20px;
+  min-width: 800px;
+  min-height: 800px;
+}
+
+#divTimeseries text{
+    font-size: 14px;
+    fill: black;
+}
+
+.timeseriesLabelCounter {
+    font-size: 12px;
+}
+
+#currMarker {
+    fill: lime;
+    stroke: purple;
+    stroke-width: 1;
+}
+
+#divNetworkLegend {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 200px;
+    height: 40px;
+    background-color: transparent;
+    padding: 8px;
+    padding-left: 16px;
+    border: 1px dotted black;
+    border-radius: 5px;
+    visibility: hidden;
+    overflow: hidden;
+    cursor: move;
+    transition: width 0.8s, height 0.8s, background-color 0.5s;
+}
+
+#divNetworkLegend:hover {
+    width: 400px;
+    height: 90px;
+    background-color: white;
+    transition: width 0.8s, height 0.8s, background-color 0.5s;
+}
+
+#divNetworkLegend #divLegendColors {
+    border: none;
+    width: 300px;
+    height: 20px;
+    margin: 0 0 8px 0;
+    padding: 10px 0 10px 0;
+}
+
+#divNetworkLegend #divLegendButtons {
+    width: 450px;
+}
+
+#divTimeseriesLegend {
+    display: inline-block;
+    border: 1px dotted black;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 8px;
+    padding-left: 12px;
+    text-align: left;
+}
+
+.legend {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+#sliderZoom {
+    float:right;
+    width:150px;
+    margin:10px;
+}
+
+#circleProgress {
+  position:absolute;
+  top:4px;
+}
+
+#boxInfo {
+  position:fixed;
+  top:60px;
+  right:20px;
+  max-width:30%;
+  word-wrap:break-word;
+  background-color:#ADD8E6;
+  border:solid blue 1px;
+  font-size:12px;
+  padding:10px;
+}
+
+.dialog
+{
+  font-size:14px;
+}
+
+#radioFormat,#radioExport
+{
+  width:50%;
+}
+
+#radioSeed,#radioGraph
+{
+  float:right;
+  width:50%;
+}
+
+.dialogButton
+{
+  position:relative;
+  left:40%;
+  margin:20px 10px 10px;
+}
+
+#radioSeed, #radioFormat {
+    margin-top: 10px;
+}
+
+#dialogImport .dialogButton, #dialogConfirm .dialogButton {
+    left: 0px;
+    margin-bottom: 5px;
+}
+
+#textRules
+{
+  min-width: 800px;
+  min-height: 600px;
+  margin: 10px;
+}
+
+#fileNetwork,#checkOptions
+{
+  margin:10px;
+}
