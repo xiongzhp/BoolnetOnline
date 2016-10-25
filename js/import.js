@@ -100,7 +100,7 @@ jSBGN.prototype.importBooleanNetwork = function (data, splitKey, reImport) {
     var doc = new sb.Document();
     doc.lang(sb.Language.AF);
 
-    // rxncon exported Boolean networks need to be adjusted in order to work with boolOnline
+    // rxncon exported Boolean networks need to be adjusted in order to work with BoolnetOnline
     if (data.indexOf('*=') + 1 +
         data.indexOf('-_P_') + 1 +
         data.indexOf('_P+_') + 1 +

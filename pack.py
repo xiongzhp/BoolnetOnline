@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 #
-# Pack all boolOnline files into
+# Pack all BoolnetOnline files into
 # one standalone HTML5 app
 #
 
@@ -38,7 +38,7 @@ p = main.find('<body')
 packed = """<html>
 
 <head>
-<title>boolOnline</title>
+<title>BoolnetOnline</title>
 <style>
 """+styles+"""
 </style>
@@ -50,4 +50,4 @@ packed = """<html>
 """+main[p:]
 
 # save
-open('boolOnline.html5', 'w').write(packed)
+open('BoolnetOnline.html5', 'w').write(packed)
